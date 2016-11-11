@@ -4,6 +4,7 @@ import os
 
 settings = None
 
+
 class GithubEmojiCompletions(sublime_plugin.EventListener):
     """
     Provide github emoji completions for selected file extensions or names
@@ -17,7 +18,7 @@ class GithubEmojiCompletions(sublime_plugin.EventListener):
 
         pt = locations[0] - len(prefix) - 1
         ch = view.substr(sublime.Region(pt, pt + 1))
-        
+
         # emoji completions
         if ch == ':':
             return settings.get("emojiCompletions")
@@ -31,9 +32,6 @@ class GithubEmojiAutoCompleteCommand(sublime_plugin.TextCommand):
     def run(self, edit, isCommitEmoji=False):
         self.view.run_command("auto_complete")
         self.view.run_command("left_delete")
-
-        # if isCommitEmoji:
-            # self.view.run_command("left_delete")
 
     def is_enabled(self):
         return is_valid_file_name(self.view.file_name()) or \
@@ -54,6 +52,7 @@ def is_valid_scope(view, point):
     #         return True
     # return False
     return True
+
 
 
 def plugin_loaded():
